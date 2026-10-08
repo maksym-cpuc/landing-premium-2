@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Премиум лендинг, новый текст</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Rubik:wght@400;500&display=swap">
+<style>
+/* Layout: тёмная история, которая разворачивается при прокрутке: линии в герое → текст с «шторкой» → стопка карточек → липкий сплит → горизонтальная лента → таймлайн → цифры → портал сквозь букву «В» → жёлтый финал с формой */
+:root{
+  --bg:#11141B; --surface:#1A1F2A; --raise:#232A38; --ink:#F2F0EA; --muted:#A8AEBB;
+  --accent:#F2C14E; --accent-ink:#1A1405; --line:#2B3343;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Rubik",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);overflow-x:hidden}
+img{max-width:100%}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:20px}
+.kicker{font:500 13px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+.muted{color:var(--muted)}
+.hl{color:var(--accent)}
+.ph{font:500 11px/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);opacity:.75}
+
+.draft{background:var(--accent);color:var(--accent-ink);font-size:13px;font-weight:500;text-align:center;padding:8px 16px;position:relative;z-index:30}
+.progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:60}
+
+/* шапка */
+header.top{position:absolute;left:0;right:0;z-index:20;padding-block:18px}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{font:700 15px/1 var(--display);text-transform:uppercase;letter-spacing:.04em}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:var(--accent-ink);text-decoration:none;font:700 15px/1 var(--display);text-transform:uppercase;letter-spacing:.03em;padding:20px 26px;border-radius:4px;border:0;cursor:pointer;transition:box-shadow .2s,transform .2s}
+.btn:hover{box-shadow:0 10px 30px -8px rgba(242,193,78,.55);transform:translateY(-2px)}
+.btn.small{padding:13px 16px;font-size:12px}
+.btn.dark{background:var(--bg);color:var(--accent)}
+
+/* 1. герой с плывущими линиями */
+.hero{position:relative;min-height:min(100svh,900px);display:grid;align-items:center;overflow:hidden;padding-block:110px 64px}
+.paths{position:absolute;inset:0;pointer-events:none;z-index:0}
+.paths svg{position:absolute;inset:0;width:100%;height:100%}
+.paths path{fill:none;stroke:var(--accent);animation:flow var(--d,24s) linear infinite;stroke-dasharray:.35 .65}
+@keyframes flow{to{stroke-dashoffset:-2}}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 30% 50%,rgba(17,20,27,.92),rgba(17,20,27,.35) 70%,transparent);z-index:0;pointer-events:none}
+.hero .wrap{position:relative;z-index:1;display:grid;gap:28px;width:100%}
+.hero h1{font-size:clamp(38px,7vw,84px);font-weight:800;text-transform:uppercase;max-width:12ch}
+.hero .lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:54ch}
+.hero .row{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}
+.free{display:flex;align-items:center;gap:12px;font-weight:500}
+.free::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px rgba(242,193,78,.18)}
+.wm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.wi{display:inline-block}
+.scroll-hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:1;font:500 11px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:grid;justify-items:center;gap:10px}
+.scroll-hint i{width:1px;height:36px;background:linear-gradient(var(--accent),transparent);animation:hint 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes hint{0%{transform:scaleY(0)}60%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+section.sec{padding-block:clamp(72px,12vw,140px)}
+.sec-head{display:grid;gap:18px;margin-bottom:clamp(32px,5vw,56px)}
+.sec-head h2{font-size:clamp(30px,5vw,58px);font-weight:700;max-width:18ch}
+
+/* 2. текст со «шторкой» */
+.wipe{font:500 clamp(22px,3.2vw,38px)/1.3 var(--display);max-width:26ch}
+.wipe.small{font:400 clamp(17px,1.8vw,20px)/1.6 var(--body);max-width:60ch;color:var(--muted)}
+.ln{display:block;position:relative;width:fit-content}
+.ln-b{position:absolute;inset:.08em -.1em;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+.why-grid{display:grid;gap:40px}
+@media (min-width:960px){.why-grid{grid-template-columns:1.2fr 1fr;align-items:end}}
+
+/* кто мы */
+.who{display:grid;gap:28px}
+@media (min-width:960px){.who{grid-template-columns:1fr 1fr;gap:64px}}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pills span{border:1px solid var(--line);padding:10px 16px;border-radius:999px;font-weight:500;background:var(--surface)}
+.who p{max-width:58ch}
+
+/* 3. стопка карточек */
+.stack{display:grid;gap:22vh;padding-bottom:10vh}
+.scard{position:sticky;top:calc(14vh + var(--i) * 26px);min-height:min(56vh,440px);border-radius:14px;padding:clamp(24px,4vw,48px);display:grid;grid-template-rows:auto 1fr auto;gap:18px;background:var(--surface);border:1px solid var(--line);transform-origin:50% 0;will-change:transform;box-shadow:0 -20px 50px -20px rgba(0,0,0,.6)}
+.scard:nth-child(2){background:var(--raise)}
+.scard:nth-child(3){background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.scard .num{font:800 clamp(56px,10vw,120px)/1 var(--display);color:var(--accent);letter-spacing:-.04em}
+.scard:nth-child(3) .num{color:var(--accent-ink)}
+.scard h3{font-size:clamp(22px,3.4vw,40px);font-weight:700;max-width:20ch;align-self:end}
+.scard p{max-width:52ch;opacity:.8}
+.stack-after{display:grid;gap:20px;max-width:62ch}
+
+/* 4. липкий сплит про категорию «В» */
+.split{display:grid;gap:0}
+.split-visual{display:none}
+.step{display:grid;gap:18px;padding-block:28px}
+.step h3{font-size:clamp(24px,3.2vw,40px);font-weight:700}
+.step p{max-width:52ch}
+.mini{margin-bottom:6px}
+@media (min-width:960px){
+  .split{grid-template-columns:1fr 1fr;gap:64px}
+  .split-steps{padding-block:10vh}
+  .step{min-height:72vh;align-content:center;opacity:.25;transition:opacity .4s}
+  .step.on{opacity:1}
+  .split-visual{display:block;position:sticky;top:14vh;height:72vh}
+  .mini{display:none}
+}
+.vis{position:absolute;inset:0;border-radius:16px;background:var(--surface);border:1px solid var(--line);display:grid;place-items:center;overflow:hidden;opacity:0;transform:scale(.92);transition:opacity .5s,transform .7s cubic-bezier(.22,1,.36,1)}
+.vis.on{opacity:1;transform:none}
+.mini .vis{position:relative;opacity:1;transform:none;height:260px}
+/* визуал 1: шкала категорий */
+.cats{display:flex;gap:10px;align-items:flex-end;height:58%}
+.cats div{width:clamp(34px,4vw,56px);border-radius:8px 8px 4px 4px;background:var(--raise);display:grid;align-items:end;justify-items:center;padding-bottom:10px;font:800 clamp(16px,2vw,22px)/1 var(--display);color:var(--muted)}
+.cats div:nth-child(1){height:30%}.cats div:nth-child(2){height:45%}.cats div:nth-child(3){height:100%;background:var(--accent);color:var(--accent-ink)}.cats div:nth-child(4){height:60%}.cats div:nth-child(5){height:40%}
+.vis small{position:absolute;bottom:20px;left:24px;right:24px;color:var(--muted);font-size:14px}
+/* визуал 2: документ со штампом */
+.doc{width:56%;aspect-ratio:3/4;max-width:100%;background:var(--ink);border-radius:6px;padding:9% 10%;display:grid;gap:7%;align-content:start;position:relative;transform:rotate(-4deg)}
+.doc i{display:block;height:7px;border-radius:4px;background:#C9CBD1}
+.doc i:nth-child(1){width:60%;height:10px;background:#8A8F9B}
+.doc i:nth-child(3){width:85%}.doc i:nth-child(5){width:70%}.doc i:nth-child(7){width:50%}
+.stamp{position:absolute;right:-12%;bottom:12%;border:4px solid #C2372B;color:#C2372B;font:800 clamp(14px,1.6vw,20px)/1 var(--display);padding:10px 14px;border-radius:6px;transform:rotate(-14deg);text-transform:uppercase;background:rgba(242,240,234,.85)}
+/* визуал 3: чек-лист */
+.check{display:grid;gap:14px;width:72%}
+.check div{display:flex;align-items:center;gap:14px;background:var(--raise);border-radius:10px;padding:16px 18px;font-weight:500}
+.check b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:15px}
+
+/* 5. горизонтальная лента */
+.hz{position:relative;overflow:hidden}
+.hz-track{display:grid;gap:14px;padding-inline:20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(24px,3vw,40px);display:grid;gap:16px;align-content:space-between;min-height:300px}
+.panel .pn{font:800 clamp(64px,9vw,140px)/.9 var(--display);color:transparent;-webkit-text-stroke:1.5px var(--accent);letter-spacing:-.04em}
+.panel h3{font-size:clamp(24px,2.6vw,36px);font-weight:700}
+.panel p{color:var(--muted);max-width:40ch}
+.panel.intro{background:transparent;border:0;padding-left:0;align-content:center}
+.panel.intro h2{font-size:clamp(30px,5vw,58px);font-weight:700}
+@media (min-width:960px){
+  .hz{height:100vh;display:flex;align-items:center}
+  .hz-track{display:flex;gap:24px;padding-inline:max(20px,calc((100vw - 1200px)/2));will-change:transform}
+  .panel{flex:none;width:min(46vw,560px);height:62vh}
+  .panel.intro{width:min(40vw,520px)}
+}
+.hz-note{max-width:62ch;margin-top:32px}
+
+/* 6. таймлайн */
+.tl{position:relative;display:grid;gap:clamp(40px,7vw,80px);padding-left:56px;max-width:760px}
+.tl-rail,.tl-fill{position:absolute;left:17px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl-fill{background:var(--accent);transform-origin:top;transform:scaleY(0)}
+.tl-step{position:relative;display:grid;gap:8px}
+.tl-step::before{content:attr(data-n);position:absolute;left:-56px;top:-4px;width:36px;height:36px;border-radius:50%;background:var(--bg);border:2px solid var(--line);display:grid;place-items:center;font:700 14px/1 var(--display);color:var(--muted);transition:all .3s}
+.tl-step.on::before{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:0 0 0 6px rgba(242,193,78,.18)}
+.tl-step h3{font-size:clamp(20px,2.4vw,28px);font-weight:700}
+.tl-step p{color:var(--muted);max-width:52ch}
+.tl-wrap{display:grid;gap:40px}
+@media (min-width:960px){.tl-wrap{grid-template-columns:1fr 1.3fr;gap:64px}.tl-wrap .sec-head{position:sticky;top:20vh;align-self:start}}
+
+/* 7. цифры */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.stats div{background:var(--bg);padding:28px}
+.stats b{display:block;font:800 clamp(44px,6vw,76px)/1 var(--display);color:var(--accent);font-variant-numeric:tabular-nums}
+.stats span{color:var(--muted)}
+.exp-text{display:grid;gap:18px;margin-top:36px}
+@media (min-width:960px){.exp-text{grid-template-columns:1fr 1fr;gap:48px}}
+
+/* отзывы */
+.revs{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.rev{border:1px solid var(--line);border-radius:14px;padding:26px;display:grid;gap:14px;align-content:start;background:var(--surface)}
+.rev p{font-size:17px}
+.rev .who-r{color:var(--muted);font-size:14px}
+
+/* 8. портал сквозь «В» */
+.portal{position:relative;height:100svh;overflow:hidden;display:grid;place-items:center;background:var(--bg)}
+.portal-glyph{font:800 min(78vh,90vw)/1 var(--display);color:var(--accent);will-change:transform;user-select:none;transform-origin:24% 52%}
+.portal-cap{position:absolute;left:0;right:0;bottom:9vh;text-align:center;display:grid;gap:10px;padding-inline:20px}
+.portal-cap b{font:700 clamp(18px,2.4vw,28px)/1.2 var(--display)}
+.portal-veil{position:absolute;inset:0;background:var(--accent);opacity:0;pointer-events:none}
+
+/* 9. финал */
+.final{background:var(--accent);color:var(--accent-ink);padding-block:clamp(72px,10vw,120px)}
+.final .wrap{display:grid;gap:40px}
+@media (min-width:960px){.final .wrap{grid-template-columns:1.1fr .9fr;align-items:start}}
+.final h2{font-size:clamp(36px,6.4vw,80px);font-weight:800;text-transform:uppercase}
+.final .txt{display:grid;gap:16px;min-width:0}
+.final .contacts{font-weight:500}
+@property --fa{syntax:"<angle>";inherits:false;initial-value:0deg}
+form.lead,.ok{border:3px solid transparent;border-radius:10px;color:var(--ink);padding:26px;display:grid;gap:14px;min-width:0;
+  background:
+    radial-gradient(120% 80% at 100% 0%,rgba(242,193,78,.38),transparent 55%) padding-box,
+    radial-gradient(90% 70% at 0% 100%,rgba(232,110,60,.32),transparent 60%) padding-box,
+    linear-gradient(160deg,#1C2230,#0E1117) padding-box,
+    conic-gradient(from var(--fa),#FFFFFF,#E86E3C 12%,#7A2E8E 24%,#11141B 38%,#11141B 62%,#7A2E8E 76%,#E86E3C 88%,#FFFFFF) border-box;
+  animation:formspin 6s linear infinite;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+@keyframes formspin{to{--fa:360deg}}
+form.lead label{display:grid;gap:6px;font-size:14px;color:var(--muted)}
+form.lead input[type=tel],form.lead input[type=text]{font:inherit;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:14px;width:100%}
+form.lead input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px rgba(242,193,78,.25)}
+form.lead .check-l{display:flex;gap:10px;align-items:flex-start;font-size:13px}
+form.lead .check-l input{margin-top:3px;accent-color:var(--accent)}
+form.lead .btn{width:100%}
+.form-error{color:#FF9C8F;font-size:14px}
+.ok b{font:700 20px/1.3 var(--display)}
+.ok small{color:var(--muted)}
+
+footer.site{padding-block:28px 40px;color:var(--muted);font-size:14px}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+
+/* липкая кнопка на телефоне */
+.sticky{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:rgba(17,20,27,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:40;transform:translateY(120%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.sticky.show{transform:none}
+.sticky .btn{width:100%}
+@media (min-width:960px){.sticky{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  .paths path,.scroll-hint i,form.lead,.ok{animation:none}
+  .vis,.step{transition:none}
+}
+.gap{border:1.5px dashed var(--accent);color:var(--accent);background:rgba(242,193,78,.06);border-radius:8px;padding:12px 16px;font:500 13px/1.4 var(--display);letter-spacing:.02em;max-width:62ch}
+.rev .ph{}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<div class="draft">Черновик · вариант 6 «Премиум, новый текст» · плашки «✎ Пропуск» — места для текста заказчика · отзывы и контакты — заглушки</div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="logo">Название НКО</div>
+    <a class="btn small" href="#contact">Написать нам</a>
+  </div>
+</header>
+
+<!-- 1. Герой -->
+<section class="hero" id="top">
+  <div class="paths" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="kicker">Призыв · мобилизация · служба</div>
+    <h1 id="h1">Зачем бороться <span class="hl">с системой?</span></h1>
+    <p class="lead">Стоит вопрос жизни и здоровья. Зачем рисковать и полагаться на удачу, если вопрос можно закрыть раз и навсегда.</p>
+    <div class="gap">✎ Пропуск 1 — формулировку из исходного текста вставьте сами</div>
+    <div class="row">
+      <a class="btn" href="#contact">Получить консультацию</a>
+      <span class="free">Сначала — консультация</span>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">Листайте<i></i></div>
+</section>
+
+<!-- 2. Юристы -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Юристы</div><h2>Почему юристы вам не помогут</h2></div>
+    <div class="why-grid">
+      <p class="wipe" data-wipe>Правильные документы — не залог успеха. Никаких гарантий они не дают, только водят вас по кругу.</p>
+      <div style="display:grid;gap:18px">
+        <p class="wipe small" data-wipe>Сейчас появилось много юристов, которые обещают помочь. Но все они шарлатаны: только выманивают деньги и водят вас за нос. Взять и решить проблему они не способны.</p>
+        <p class="wipe small" data-wipe style="color:var(--ink)">Мало того, что не помогают, так ещё и мешают. Когда вы приходите в военкомат с такими «защитниками», давить на вас начинают ещё сильнее.</p>
+        <div class="gap">✎ Пропуск 2 — формулировку из исходного текста вставьте сами</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Кто мы -->
+<section class="sec" id="who" style="padding-top:0">
+  <div class="wrap who">
+    <div class="sec-head" style="margin:0"><div class="kicker">Кто мы</div><h2>Мы — не юридическая контора</h2></div>
+    <div style="display:grid;gap:22px" class="fade-group">
+      <p>Мы — некоммерческая организация с командой юристов на аутсорсе, а также специалистами в других направлениях. Как НКО, мы можем принимать пожертвования, гранты и членские взносы, а в некоторых случаях — оказывать платные услуги.</p>
+      <p>Объясняем сразу: мы не будем ходить с вами по военкоматам и больницам. Мы закроем вопрос раз и навсегда.</p>
+      <div class="pills"><span>Категория «Д»</span><span>Бронь</span><span>АГС</span><span>И многое другое</span></div>
+      <p class="muted">Не ссоримся с военкоматом и ничего ему не доказываем.</p>
+      <div class="gap">✎ Пропуск 3 — формулировку из исходного текста вставьте сами</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Произвол военкоматов -->
+<section class="sec" id="problems" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Как есть</div><h2>Военкомат может поставить ту категорию, которую захочет</h2><p class="muted" style="max-width:60ch">Сейчас беспредел: самому лезть не стоит, а с юристами ещё хуже. У вас может быть реальное заболевание и правильно оформленные документы, но у военкомата план или личная неприязнь, и вам поставят не ту категорию, которую вы ждёте.</p></div>
+    <div class="stack">
+      <article class="scard" style="--i:0"><div class="num">01</div><h3>Не ставят нужную категорию</h3><p>Диагноз есть, документы в порядке, а категория — не та.</p></article>
+      <article class="scard" style="--i:1"><div class="num">02</div><h3>Не снимают с учёта</h3><p>Основания есть, но вас продолжают держать на учёте.</p></article>
+      <article class="scard" style="--i:2"><div class="num">03</div><h3>Чуть ли не силой заставляют подписать контракт</h3><p>Таких случаев много, и каждый день их становится больше.</p></article>
+    </div>
+    <div class="stack-after fade-group">
+      <p>Идти судиться или писать в высшие инстанции — ещё более неблагодарное дело. Везде произвол, каждый военкомат разный, и решать с каждым по отдельности невозможно.</p>
+      <div class="gap">✎ Пропуск 4 — формулировку из исходного текста вставьте сами</div>
+      <div><a class="btn" href="#contact">Разобрать мою ситуацию</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Мобилизация и категория «В» -->
+<section class="sec" id="cat-v" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Мобилизация</div><h2>Категория «В» — не повод радоваться</h2></div>
+    <div class="split">
+      <div class="split-steps">
+        <div class="step" data-step="0"><div class="mini"></div><h3>Вопрос не «будет ли», а «когда»</h3><p class="muted">Сейчас не стоит вопрос, будет мобилизация или нет. Стоит вопрос, когда она будет.</p></div>
+        <div class="step" data-step="1"><div class="mini"></div><h3>Быстро дали «В»? Насторожитесь</h3><p class="muted">Если вам быстро и легко поставили категорию «В», это не повод радоваться. У них уже есть планы на вас, вас просто подготавливают. Категория «В» — перевалочный пункт, а не решение проблемы.</p></div>
+        <div class="step" data-step="2"><div class="mini"></div><h3>Сегодня не призывной — завтра в окопах</h3><p class="muted">Если сегодня вы не призывной, то завтра с новым законом можете рыть окопы. Подумайте заранее: потом решить проблему будет дороже и тяжелее.</p><div><a class="btn" href="#contact">Решить заранее</a></div></div>
+      </div>
+      <div class="split-visual" aria-hidden="true">
+        <div class="vis on" data-vis="0"><div class="cats"><div>А</div><div>Б</div><div>В</div><div>Г</div><div>Д</div></div><small>Категории годности к военной службе</small></div>
+        <div class="vis" data-vis="1"><div class="doc"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="stamp">Годен «В»</span></div></div>
+        <div class="vis" data-vis="2"><div class="doc"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="stamp">Новый закон</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Разные проблемы -->
+<section class="hz" id="help">
+  <div class="hz-track">
+    <div class="panel intro"><div class="kicker">С чем помогаем</div><h2>Решаем разные проблемы</h2><p class="muted">Помогаем и призывникам, и военным, которые хотят уйти со службы.</p></div>
+    <div class="panel"><div class="pn">01</div><div style="display:grid;gap:10px"><h3>Повестка</h3><p>Пришла повестка — пишите, будем разбираться.</p></div></div>
+    <div class="panel"><div class="pn">02</div><div style="display:grid;gap:10px"><h3>СВО и служба</h3><p>Военным, которые хотят уйти со службы.</p></div></div>
+    <div class="panel"><div class="pn">03</div><div style="display:grid;gap:10px"><h3>Категория и учёт</h3><p>Категория «Д», снятие с воинского учёта.</p></div></div>
+    <div class="panel"><div class="pn">04</div><div style="display:grid;gap:10px"><h3>Бронь и АГС</h3><p>Бронь, альтернативная служба и многое другое.</p></div></div>
+  </div>
+</section>
+<div class="wrap fade-group" style="display:grid;gap:16px;margin-top:32px">
+  <p class="muted" style="max-width:62ch">Мы можем помочь с очень разными проблемами. Но не все случаи можно решить.</p>
+  <div class="gap">✎ Пропуск 5 — формулировку из исходного текста вставьте сами</div>
+</div>
+
+<!-- 6. Порядок -->
+<section class="sec" id="how">
+  <div class="wrap tl-wrap">
+    <div class="sec-head"><div class="kicker">Как мы работаем</div><h2>Сначала — консультация</h2><p class="muted">Потом смотрим, можем ли помочь, и только потом — решение.</p></div>
+    <div class="tl">
+      <div class="tl-rail"></div><div class="tl-fill"></div>
+      <div class="tl-step" data-n="1"><h3>Пишете нам в Telegram</h3><p>Или оставляете свой ник в форме — мы напишем сами.</p></div>
+      <div class="tl-step" data-n="2"><h3>Консультация</h3><p>Разбираем вашу ситуацию.</p></div>
+      <div class="tl-step" data-n="3"><h3>Смотрим, можем ли помочь</h3><p>Не все случаи можно решить — говорим об этом сразу.</p></div>
+      <div class="tl-step" data-n="4"><h3>Решение</h3><p>Закрываем вопрос раз и навсегда.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Отзывы -->
+<section class="sec" id="reviews" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><div class="kicker">Отзывы</div><h2>Что говорят те, кто уже решил вопрос</h2></div>
+    <div class="revs fade-group">
+      <article class="rev"><div class="ph">Пример отзыва — заменить на реальный</div><p>Сыну пришла повестка, мы были в панике. Написали, на консультации всё объяснили, дальше вопрос закрыли.</p><div class="who-r">Ирина, мама призывника</div></article>
+      <article class="rev"><div class="ph">Пример отзыва — заменить на реальный</div><p>Сам ходил по врачам полгода — без толку. Обратился сюда, и вопрос решился.</p><div class="who-r">Артём, 22 года</div></article>
+      <article class="rev"><div class="ph">Пример отзыва — заменить на реальный</div><p>Получил категорию «Д», про мобилизацию больше не переживаю.</p><div class="who-r">Максим, 29 лет</div></article>
+      <article class="rev"><div class="ph">Пример отзыва — заменить на реальный</div><p>Хотел уйти со службы, сам не понимал, с чего начать. Помогли разобраться.</p><div class="who-r">Олег, военнослужащий</div></article>
+      <article class="rev"><div class="ph">Пример отзыва — заменить на реальный</div><p>Думали, что с категорией «В» всё закончилось. Хорошо, что вовремя спохватились.</p><div class="who-r">Сергей и Наталья, родители</div></article>
+      <article class="rev"><div class="ph">Пример отзыва — заменить на реальный</div><p>Юристы до этого полгода водили по кругу. Здесь всё было быстро и без лишних разговоров.</p><div class="who-r">Денис, 31 год</div></article>
+    </div>
+    <div class="gap" style="margin-top:16px">✎ Пропуск 6 — отзыв из исходного текста вставьте сами</div>
+  </div>
+</section>
+
+<!-- Портал сквозь «В» -->
+<section class="portal" id="portal" aria-hidden="true">
+  <div class="portal-glyph">В</div>
+  <div class="portal-cap"><span class="kicker">Перевалочный пункт</span><b>Не ждите, пока станет дороже</b></div>
+  <div class="portal-veil"></div>
+</section>
+
+<!-- Финал -->
+<section class="final" id="contact">
+  <div class="wrap">
+    <div class="txt">
+      <h2>Решайте, пока проблема в зародыше</h2>
+      <p>Дешевле и быстрее решить вопрос в самом начале, чем пытаться сделать всё самому, а потом исправлять. Так будет дороже и проблематичнее.</p>
+      <p>Оставьте ник в Telegram — мы напишем сами. Или напишите нам первыми.</p>
+      <p class="contacts">Telegram: <a href="https://t.me/">@nko_placeholder</a></p>
+    </div>
+    <div>
+      <form class="lead" data-lead novalidate>
+        <label for="p-tg">Ник в Telegram<input id="p-tg" name="tg" type="text" placeholder="@username"></label>
+        <label class="check-l" for="p-consent"><input id="p-consent" name="consent" type="checkbox">Согласен на обработку персональных данных</label>
+        <p class="form-error" hidden></p>
+        <button class="btn" type="submit">Жду сообщения</button>
+      </form>
+      <div class="ok" hidden><b>Готово. Мы вам напишем.</b><small>Это прототип: данные никуда не отправляются.</small></div>
+    </div>
+  </div>
+</section>
+
+<footer class="site"><div class="wrap"><span>© Название НКО, 2026</span><span>Telegram @nko_placeholder</span></div></footer>
+<div class="sticky"><a class="btn" href="#contact">Написать нам</a></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var desktop=matchMedia('(min-width: 960px)');
+
+  // ---- форма (работает и без анимаций) ----
+  $$('form[data-lead]').forEach(function(f){
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var t=f.querySelector('[name=tg]').value.trim(),err=f.querySelector('.form-error');
+      if(!t){err.textContent='Укажите ник в Telegram.';err.hidden=false;return}
+      if(!f.querySelector('[name=consent]').checked){err.textContent='Отметьте согласие на обработку данных.';err.hidden=false;return}
+      err.hidden=true;f.hidden=true;f.nextElementSibling.hidden=false;
+      if(window.gsap)gsap.from(f.nextElementSibling,{scale:.85,opacity:0,duration:.8,ease:'back.out(2)'});
+    });
+  });
+
+  // ---- плывущие линии в герое ----
+  (function(){
+    var box=$('.paths'),n=desktop.matches?30:16,ns='http://www.w3.org/2000/svg';
+    [1,-1].forEach(function(pos){
+      var svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 696 316');svg.setAttribute('preserveAspectRatio','xMidYMid slice');
+      for(var k=0;k<n;k++){
+        var i=k*(36/n),p=document.createElementNS(ns,'path'),a=i*5*pos,b=i*6;
+        p.setAttribute('d','M-'+(380-a)+' -'+(189+b)+'C-'+(380-a)+' -'+(189+b)+' -'+(312-a)+' '+(216-b)+' '+(152-a)+' '+(343-b)+'C'+(616-a)+' '+(470-b)+' '+(684-a)+' '+(875-b)+' '+(684-a)+' '+(875-b));
+        p.setAttribute('pathLength','1');
+        p.setAttribute('stroke-width',(0.5+i*0.03).toFixed(2));
+        p.setAttribute('stroke-opacity',(0.12+i*0.018).toFixed(3));
+        p.style.setProperty('--d',(18+Math.random()*14).toFixed(1)+'s');
+        p.style.animationDelay=(-Math.random()*20).toFixed(1)+'s';
+        svg.appendChild(p);
+      }
+      box.appendChild(svg);
+    });
+  })();
+
+  // ---- клоны визуалов для телефона ----
+  $$('.step').forEach(function(st){var v=$('.vis[data-vis="'+st.dataset.step+'"]');var m=$('.mini',st);if(v&&m)m.appendChild(v.cloneNode(true))});
+
+  // ---- кнопка внизу на телефоне: после первого экрана и до формы ----
+  var sticky=$('.sticky'),heroEl=$('#top'),contactEl=$('#contact'),tk=false;
+  function upd(){tk=false;var hb=heroEl.getBoundingClientRect().bottom,ct=contactEl.getBoundingClientRect().top;sticky.classList.toggle('show',hb<0&&ct>innerHeight*0.9)}
+  addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(upd)}},{passive:true});
+
+  if(!window.gsap||!window.ScrollTrigger)return;
+  gsap.registerPlugin(ScrollTrigger);
+  var mm=gsap.matchMedia();
+
+  mm.add('(prefers-reduced-motion: no-preference)',function(){
+
+    // плавный скролл
+    var lenis=null;
+    if(window.Lenis){
+      lenis=new Lenis({lerp:0.1});
+      lenis.on('scroll',ScrollTrigger.update);
+      gsap.ticker.add(function(t){lenis.raf(t*1000)});
+      gsap.ticker.lagSmoothing(0);
+      $$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=$(a.getAttribute('href'));if(t){e.preventDefault();lenis.scrollTo(t,{offset:0,duration:1.4})}})});
+    }
+
+    // прогресс чтения
+    gsap.to('.progress',{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:true}});
+
+    // герой: слова выезжают из «окошек»
+    var h1=$('#h1'),out=[];
+    Array.prototype.slice.call(h1.childNodes).forEach(function(n){
+      var hl=n.nodeType===1;
+      n.textContent.split(/(\s+)/).forEach(function(t){if(!t)return;out.push(/^\s+$/.test(t)?' ':'<span class="wm"><span class="wi'+(hl?' hl':'')+'">'+t+'</span></span>')});
+    });
+    h1.innerHTML=out.join('');
+    var intro=gsap.timeline({defaults:{ease:'expo.out'}});
+    intro.from('.hero .wi',{yPercent:110,rotate:5,duration:1.2,stagger:.08},.15)
+         .from('.hero .kicker, .hero .lead, .hero .row',{y:24,opacity:0,duration:1,stagger:.12},.55)
+         .from('.paths',{opacity:0,duration:2},0)
+         .from('header.top',{y:-20,opacity:0,duration:.8},.4);
+    // герой уходит вглубь при прокрутке
+    gsap.to('.hero .wrap',{yPercent:-18,opacity:.2,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+
+    // текст со «шторкой»: строка закрывается жёлтым блоком и открывается
+    function buildLines(el){
+      var txt=el.dataset.txt||(el.dataset.txt=el.textContent.trim());
+      el.innerHTML=txt.split(/\s+/).map(function(w){return '<span class="w">'+w+'</span>'}).join(' ');
+      var lines=[],top=null;
+      $$('.w',el).forEach(function(w){if(w.offsetTop!==top){top=w.offsetTop;lines.push([])}lines[lines.length-1].push(w.textContent)});
+      el.innerHTML=lines.map(function(l){return '<span class="ln"><span class="ln-t">'+l.join(' ')+'</span><i class="ln-b"></i></span>'}).join('');
+    }
+    (document.fonts?document.fonts.ready:Promise.resolve()).then(function(){ $$('[data-wipe]').forEach(function(el){
+      buildLines(el);
+      gsap.set($$('.ln-t',el),{opacity:0});
+      ScrollTrigger.create({trigger:el,start:'top 82%',once:true,onEnter:function(){
+        $$('.ln',el).forEach(function(ln,i){
+          var b=$('.ln-b',ln),t=$('.ln-t',ln);
+          gsap.timeline({delay:i*.12})
+            .fromTo(b,{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.45,ease:'power3.inOut'})
+            .set(t,{opacity:1})
+            .set(b,{transformOrigin:'100% 50%'})
+            .to(b,{scaleX:0,duration:.45,ease:'power3.inOut'});
+        });
+        el.dataset.done=1;
+      }});
+    }); ScrollTrigger.refresh(); });
+    var lastW=innerWidth;
+    addEventListener('resize',function(){if(innerWidth===lastW)return;lastW=innerWidth;$$('[data-wipe]').forEach(function(el){if(el.dataset.done){buildLines(el);gsap.set($$('.ln-t',el),{opacity:1});gsap.set($$('.ln-b',el),{scaleX:0})}})});
+
+    // спокойные появления
+    $$('.fade-group').forEach(function(g){
+      gsap.from(g.children,{y:30,opacity:0,duration:.9,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:g,start:'top 85%',once:true}});
+    });
+    $$('.sec-head').forEach(function(h){
+      gsap.from(h.children,{y:40,opacity:0,duration:1,stagger:.1,ease:'expo.out',scrollTrigger:{trigger:h,start:'top 85%',once:true}});
+    });
+
+    // стопка карточек: предыдущие уменьшаются и темнеют
+    var cards=$$('.scard'),N=cards.length;
+    cards.forEach(function(c,i){
+      if(i===N-1)return;
+      gsap.to(c,{scale:0.94,filter:'brightness(0.6)',ease:'none',
+        scrollTrigger:{trigger:cards[i+1],start:'top 70%',end:'top 22%',scrub:true}});
+    });
+
+    // липкий сплит: шаги переключают визуал (ПК)
+    var steps=$$('.split-steps .step'),vis=$$('.split-visual .vis');
+    steps.forEach(function(st,i){
+      ScrollTrigger.create({trigger:st,start:'top 55%',end:'bottom 45%',onToggle:function(s){
+        if(!s.isActive)return;
+        steps.forEach(function(x,j){x.classList.toggle('on',j===i)});
+        vis.forEach(function(v,j){v.classList.toggle('on',j===i)});
+      }});
+    });
+    // анимации внутри визуалов
+    gsap.from('.split-visual .cats div',{scaleY:0,transformOrigin:'50% 100%',duration:1,stagger:.08,ease:'expo.out',scrollTrigger:{trigger:'.split',start:'top 60%',once:true}});
+
+    // горизонтальная лента (ПК), на телефоне — обычные появления
+    mm.add('(min-width: 960px)',function(){
+      var track=$('.hz-track');
+      var tween=gsap.to(track,{x:function(){return -(track.scrollWidth-innerWidth)},ease:'none',
+        scrollTrigger:{trigger:'.hz',start:'top top',end:function(){return '+='+(track.scrollWidth-innerWidth)},pin:true,scrub:1,invalidateOnRefresh:true,anticipatePin:1}});
+      $$('.panel .pn').forEach(function(pn){
+        gsap.from(pn,{xPercent:40,opacity:0,ease:'none',scrollTrigger:{trigger:pn.parentNode,containerAnimation:tween,start:'left 95%',end:'left 45%',scrub:true}});
+      });
+    });
+    mm.add('(max-width: 959px)',function(){
+      $$('.panel').forEach(function(p){gsap.from(p,{y:50,opacity:0,duration:.9,ease:'power3.out',scrollTrigger:{trigger:p,start:'top 88%',once:true}})});
+    });
+
+    // таймлайн: линия прорисовывается, шаги загораются
+    gsap.to('.tl-fill',{scaleY:1,ease:'none',scrollTrigger:{trigger:'.tl',start:'top 60%',end:'bottom 60%',scrub:true}});
+    $$('.tl-step').forEach(function(st){
+      ScrollTrigger.create({trigger:st,start:'top 60%',onEnter:function(){st.classList.add('on')},onLeaveBack:function(){st.classList.remove('on')}});
+      gsap.from(st,{x:30,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:st,start:'top 85%',once:true}});
+    });
+
+    // цифры набегают
+    $$('.stats b[data-to]').forEach(function(b){
+      var o={v:0},to=+b.dataset.to,suf=b.dataset.suf||'';
+      b.textContent='0'+suf;
+      gsap.to(o,{v:to,duration:2,ease:'power2.out',scrollTrigger:{trigger:b,start:'top 85%',once:true},onUpdate:function(){b.textContent=Math.round(o.v)+suf}});
+    });
+
+    // портал: пролетаем сквозь букву «В» в жёлтый финал
+    gsap.timeline({scrollTrigger:{trigger:'.portal',start:'top top',end:'+=160%',pin:true,scrub:1,anticipatePin:1}})
+      .to('.portal-cap',{opacity:0,y:-30,duration:.15},0)
+      .fromTo('.portal-glyph',{scale:.55},{scale:1,duration:.2,ease:'power1.out'},0)
+      .to('.portal-glyph',{scale:70,duration:.7,ease:'power3.in'},.2)
+      .to('.portal-veil',{opacity:1,duration:.15},.75);
+
+    // финал
+    gsap.from('.final h2, .final .txt p, .final form',{y:50,opacity:0,duration:1,stagger:.1,ease:'expo.out',scrollTrigger:{trigger:'.final',start:'top 70%',once:true}});
+
+    document.fonts&&document.fonts.ready.then(function(){ScrollTrigger.refresh()});
+    return function(){if(lenis)lenis.destroy()};
+  });
+})();
+</script>
+</body>
+</html>
