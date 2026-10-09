@@ -216,36 +216,38 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-bet
   .vis,.step{transition:none}
 }
 /* отзывы: карточки */
+.yr-wrap{background:#fff;color:#000;border-radius:6px;padding:24px 0 18px;display:grid;gap:10px;font-family:Arial,"Helvetica Neue",sans-serif}
 .yr{display:grid;gap:16px}
-@media (min-width:960px){.yr{grid-template-columns:230px 1fr;align-items:start}}
-.yr-sum{background:#F2F2F2;color:#000;padding:22px 18px;display:grid;justify-items:center;gap:10px;text-align:center;font-family:Arial,"Helvetica Neue",sans-serif}
+@media (min-width:960px){.yr{grid-template-columns:208px 1fr;align-items:start}}
+.yr-sum{background:#F2F2F2;color:#000;padding:20px 16px 26px;display:grid;justify-items:center;gap:12px;text-align:center}
 .yr-org{font:700 19px/1.2 Arial,"Helvetica Neue",sans-serif}
-.yr-score{font:700 22px/1 Arial,"Helvetica Neue",sans-serif}
-.yr-score span{font-size:22px}
+.yr-score{font:700 20px/1 Arial,"Helvetica Neue",sans-serif}
+.yr-score span{font-size:20px}
 .yr-stars{color:#FC0;letter-spacing:1px;font-size:14px}
-.yr-stars.big{font-size:24px;letter-spacing:3px}
-.yr-sum small{color:#666;font-size:12px;margin-top:6px}
-.yr-btn{border:1px solid #C9C9C9;background:#fff;color:#000;text-decoration:none;font-size:13px;padding:8px 16px;border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
-.yr-btn:hover{border-color:#999}
-.yr-slider{min-width:0;display:grid;gap:16px}
-.yr-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 6px 14px;align-items:flex-start}
+.yr-stars.big{font-size:24px;letter-spacing:2px}
+.yr-sum small{color:#555;font-size:11px;margin-top:8px}
+.yr-btn{border:0;background:#fff;color:#000;text-decoration:none;font-size:12px;padding:7px 18px;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.yr-btn:hover{box-shadow:0 1px 6px rgba(0,0,0,.35)}
+.yr-slider{min-width:0;display:grid;gap:22px;padding-inline:16px}
+@media (min-width:960px){.yr-slider{padding-inline:0 16px}}
+.yr-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 4px 12px;align-items:flex-start}
 .yr-track::-webkit-scrollbar{display:none}
-.yr-card{flex:0 0 min(80vw,246px);scroll-snap-align:start;background:#fff;color:#000;border-radius:8px;padding:14px 14px 16px;display:grid;gap:8px;align-content:start;box-shadow:0 2px 6px rgba(0,0,0,.18);font-family:Arial,"Helvetica Neue",sans-serif}
-.yr-head{display:flex;align-items:center;gap:10px}
+.yr-card{flex:0 0 min(78vw,245px);scroll-snap-align:start;background:#fff;color:#000;border-radius:6px;padding:14px 13px 16px;display:grid;gap:7px;align-content:start;box-shadow:0 1px 6px rgba(0,0,0,.28)}
+.yr-head{display:flex;align-items:center;gap:10px;margin-bottom:2px}
 .yr-head b{display:block;font-weight:400;font-size:15px}
 .yr-head small{display:none}
-.yr-ava{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:15px}
+.yr-ava{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:18px;line-height:1}
 .yr-meta{display:flex;align-items:center;gap:6px}
 .yr-date{color:#000;font-size:13px}
-.yr-text{font-size:15px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden;margin:0}
+.yr-text{font-size:15px;line-height:1.2;display:-webkit-box;-webkit-line-clamp:7;-webkit-box-orient:vertical;overflow:hidden;margin:0;color:#000}
 .yr-text.open{display:block}
-.yr-more{justify-self:start;background:none;border:0;padding:0;color:#666;font:13px Arial,sans-serif;cursor:pointer}
+.yr-more{justify-self:start;background:none;border:0;padding:0;color:#777;font:13px Arial,sans-serif;cursor:pointer;margin-top:-4px}
 .yr-nav{display:flex;align-items:center;gap:10px}
-.yr-arrow{width:30px;height:30px;border-radius:50%;border:0;background:#F2F2F2;color:#333;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;padding-bottom:3px}
-.yr-arrow:hover{background:#fff}
-.yr-bar{flex:1;height:2px;background:var(--line);overflow:hidden;margin-left:12px}
-.yr-bar i{display:block;height:100%;background:#3D7BE0;width:30%}
-.yr-note{color:var(--muted);font-size:12px;opacity:.7}
+.yr-arrow{width:28px;height:28px;border-radius:50%;border:0;background:#F0F0F0;color:#333;font-size:19px;line-height:1;cursor:pointer;display:grid;place-items:center;padding-bottom:3px}
+.yr-arrow:hover{background:#E2E2E2}
+.yr-bar{flex:1;height:2px;background:#E3E3E3;overflow:hidden;margin-left:14px}
+.yr-bar i{display:block;height:100%;background:#4A8DE8;width:30%}
+.yr-note{color:#999;font-size:11px;text-align:right;padding-inline:16px;margin:0}
 </style>
 </head>
 <body>
@@ -373,7 +375,7 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-bet
 <section class="sec" id="reviews" style="padding-top:0">
   <div class="wrap">
     <div class="sec-head"><div class="kicker">Отзывы</div><h2>Что говорят те, кто уже решил вопрос</h2></div>
-    <div class="yr fade-group">
+    <div class="yr-wrap fade-group"><div class="yr">
       <aside class="yr-sum">
         <b class="yr-org">Название НКО</b>
         <div class="yr-score">X,X <span>из 5</span></div>
@@ -383,20 +385,21 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-bet
       </aside>
       <div class="yr-slider">
         <div class="yr-track" data-lenis-prevent>
-        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#E86E3C">И</span><div><b>Ирина</b><small>мама призывника</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">5 февраля</span></div><p class="yr-text">Сыну пришла повестка, мы были в панике. Написали, на консультации всё объяснили, дальше вопрос закрыли.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
-        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#7A6CF0">А</span><div><b>Артём</b><small>22 года</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">2 февраля</span></div><p class="yr-text">Сам ходил по врачам полгода — без толку. Обратился сюда, и вопрос решился.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
-        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#2FA36B">М</span><div><b>Максим</b><small>29 лет</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">13 декабря</span></div><p class="yr-text">Получил категорию «Д», про мобилизацию больше не переживаю.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
-        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#3B82C4">О</span><div><b>Олег</b><small>военнослужащий</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">12 декабря</span></div><p class="yr-text">Хотел уйти со службы, сам не понимал, с чего начать. Помогли разобраться.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
-        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#C2477A">С</span><div><b>Сергей и Наталья</b><small>родители</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">28 ноября</span></div><p class="yr-text">Думали, что с категорией «В» всё закончилось. Хорошо, что вовремя спохватились. Спасибо за то, что всё объяснили спокойно и по делу, без лишних обещаний и запугиваний.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
-        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#B8892A">Д</span><div><b>Денис</b><small>31 год</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">14 ноября</span></div><p class="yr-text">Юристы до этого полгода водили по кругу. Здесь всё было быстро и без лишних разговоров.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
+        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#E8F3EC">🚚</span><div><b>Ирина</b><small>мама призывника</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">5 февраля</span></div><p class="yr-text">Сыну пришла повестка, мы были в панике. Написали, на консультации всё объяснили, дальше вопрос закрыли.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
+        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#FBEAF6">✨</span><div><b>Артём</b><small>22 года</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">2 февраля</span></div><p class="yr-text">Сам ходил по врачам полгода — без толку. Обратился сюда, и вопрос решился.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
+        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#E9EEF9">🤖</span><div><b>Максим</b><small>29 лет</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">13 декабря</span></div><p class="yr-text">Получил категорию «Д», про мобилизацию больше не переживаю.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
+        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#FDF0E4">👩</span><div><b>Олег</b><small>военнослужащий</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">12 декабря</span></div><p class="yr-text">Хотел уйти со службы, сам не понимал, с чего начать. Помогли разобраться.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
+        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#EEF6E6">🌿</span><div><b>Сергей и Наталья</b><small>родители</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">28 ноября</span></div><p class="yr-text">Думали, что с категорией «В» всё закончилось. Хорошо, что вовремя спохватились. Спасибо за то, что всё объяснили спокойно и по делу, без лишних обещаний и запугиваний.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
+        <article class="yr-card"><div class="yr-head"><span class="yr-ava" style="background:#F1ECFB">🛡️</span><div><b>Денис</b><small>31 год</small></div></div><div class="yr-meta"><span class="yr-stars" aria-label="5 из 5">★★★★★</span><span class="yr-date">14 ноября</span></div><p class="yr-text">Юристы до этого полгода водили по кругу. Здесь всё было быстро и без лишних разговоров.</p><button class="yr-more" type="button" hidden>Показать полностью</button></article>
         </div>
         <div class="yr-nav">
           <button class="yr-arrow" type="button" data-dir="-1" aria-label="Назад">‹</button>
           <button class="yr-arrow" type="button" data-dir="1" aria-label="Вперёд">›</button>
           <div class="yr-bar"><i></i></div>
         </div>
-        <p class="yr-note">Отзывы и рейтинг — примеры, заменить на реальные</p>
       </div>
+    </div>
+    <p class="yr-note">Отзывы и рейтинг — примеры, заменить на реальные</p>
     </div>
   </div>
   <script>
